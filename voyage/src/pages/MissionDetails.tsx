@@ -12,14 +12,15 @@ export default function MissionDetails(){
   const { getMissionById, updateMission, updateMemberStatus } = useMissions()
   const { user } = useAuth()
   const mission = id ? getMissionById(id) : undefined
+  const [editing, setEditing] = useState(false)
+  const [title, setTitle] = useState(mission?.title ?? '')
+  const [deadline, setDeadline] = useState(mission?.deadline ?? '')
+
   if(!mission) return <div className="max-w-[800px] mx-auto px-4 py-10 text-white">Mission not found. <Link to="/missions" className="text-sky-300 underline">Back</Link></div>
   const assignee = mission.assignedTo==='ALL' ? null : getUserById(mission.assignedTo)
   const isCaptain = user?.role==='Co-Captain'
   const isCrewMission = mission.assignmentType==='CREW' && mission.kind==='MISSION'
   const myStatus = isCrewMission && user ? (mission.memberStatuses?.[user.id] || 'NOT_STARTED') : mission.status
-  const [editing, setEditing] = useState(false)
-  const [title, setTitle] = useState(mission.title)
-  const [deadline, setDeadline] = useState(mission.deadline)
 
   const setMyStatus = (s: MissionStatus) => {
     if(!user) return

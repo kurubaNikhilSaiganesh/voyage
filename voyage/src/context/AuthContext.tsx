@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import type { User } from '../types'
 import { users } from '../data/users'
 
@@ -11,15 +11,15 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-
-  useEffect(() => {
-    const stored = localStorage.getItem('voyage_user')
-    if (stored) {
-      const found = users.find(u => u.id === stored)
-      if (found) setUser(found)
-    }
-  }, [])
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const stored = localStorage.getItem('voyage_user')
+      if (stored) {
+        return users.find(u => u.id === stored) || null
+      }
+    } catch {}
+    return null
+  })
 
   const login = (userId: string) => {
     const found = users.find(u => u.id === userId)

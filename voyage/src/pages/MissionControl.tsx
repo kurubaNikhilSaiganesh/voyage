@@ -10,7 +10,6 @@ import { Pencil, Archive, Trash2, Search } from 'lucide-react'
 export default function MissionControl(){
   const { missions, updateMission, archiveMission, deleteMission } = useMissions()
   const { user } = useAuth()
-  if (user?.role !== 'Co-Captain') return <Navigate to="/" replace />
   const [filter, setFilter] = useState<'all'|'individual'|'crew'|'active'|'completed'|'overdue'|'updates'>('all')
   const [q, setQ] = useState('')
   const [openCreate, setOpenCreate] = useState(false)
@@ -18,6 +17,8 @@ export default function MissionControl(){
   const [editTitle, setEditTitle] = useState('')
   const [editDeadline, setEditDeadline] = useState('')
   const [editAssign, setEditAssign] = useState('')
+
+  if (user?.role !== 'Co-Captain') return <Navigate to="/" replace />
 
   let list = [...missions]
   if (filter==='individual') list = list.filter(m=>m.assignmentType==='INDIVIDUAL' && m.kind==='MISSION')
