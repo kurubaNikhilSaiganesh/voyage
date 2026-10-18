@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0a1628;
+  --color-navy-soft: #102540;
+  --color-navy-light: #1a3354;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* { font-family: 'Inter', system-ui, sans-serif; }
+
+html, body { background: #070f1e; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-thumb { background: #2a4a6b; border-radius: 999px; }
+
+/* parchment texture helper */
+.parchment {
+  background: #fdf6e3;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(0,0,0,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(139,90,43,0.06) 0%, transparent 40%);
+}
